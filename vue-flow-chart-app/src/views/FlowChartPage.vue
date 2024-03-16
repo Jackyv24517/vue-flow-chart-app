@@ -1,13 +1,13 @@
 <template>
     <v-container>
       <h1>Flow Chart Application</h1>
-      <CanvasComponent />
-      <NodeDetailDrawer />
+      <CanvasComponentNew />
     </v-container>
   </template>
   
   <script setup lang="ts">
-  import CanvasComponent from '../components/CanvasComponent.vue';
+  // import CanvasComponent from '../components/CanvasComponent.vue';
+  import CanvasComponentNew from '../components/CanvasComponentNew.vue';
   import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
   </script>
   
