@@ -10,7 +10,27 @@
   import nodesData from '../assets/nodes.json';
   import { useNodeStore } from '../stores/nodes';
 
-  
+interface NodeData {
+    id: string;
+    type?: string; // Optional, for custom node types
+    position: { x: number; y: number, z: number };
+     data: { label: string; [key: string]: any }; // 'data' can contain any additional properties
+}
+
+interface EdgeData {
+    id: string;
+  source: string;
+  target: string;
+  label?: string; // Optional, for labeling the edge
+  // Vue Flow supports additional properties for styling and behavior customization
+  [key: string]: any;
+}
+
+interface TransformedData {
+  transformedNodes: NodeData[];
+  transformedEdges: EdgeData[];
+}
+
   // Reference for nodes and edges
   const { nodes, edges, getSelectedNodes } = useVueFlow();
   const nodeStore = useNodeStore();
@@ -25,8 +45,8 @@
   
   // Function to transform your JSON data to Vue Flow compatible nodes and edges
   function transformDataToVueFlowNodesAndEdges(data) {
-    const transformedNodes = ref();
-    const transformedEdges = ref();
+    const transformedNodes: NodeData[] = [];
+    const transformedEdges: EdgeData[] = [];
   
     data.forEach(node => {
       // Transform nodes here based on your data structure
@@ -61,7 +81,7 @@
   <style scoped>
   .flow-canvas {
     width: 100%;
-    height: 500px; /* Adjust based on your needs */
+    height: 80vh;
   }
   </style>
   
