@@ -47,15 +47,15 @@
             <v-select v-model="newNodeData.type" :items="nodeTypes" label="Type of Node" />
         </v-card-text>
         <v-card-actions>
-            <v-btn text @click="showNodeCreationDialog = false">Cancel</v-btn>
-            <v-btn text @click="createNode">Save</v-btn>
+            <v-btn @click="showNodeCreationDialog = false">Cancel</v-btn>
+            <v-btn @click="createNode">Save</v-btn>
         </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import { MiniMap } from '@vue-flow/minimap'

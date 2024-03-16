@@ -23,7 +23,7 @@
   
           <!-- Actions: Save, Delete, and Close -->
           <v-btn @click="saveChanges">Save</v-btn>
-          <v-btn color="error" @click="deleteNode">Delete</v-btn>
+          <v-btn color="error">Delete</v-btn>
           <v-btn @click="closeDrawer">Close</v-btn>
         </v-form>
       </v-container>
@@ -32,7 +32,7 @@
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { useNodeStore } from '../stores/nodes'; // Your store path
+  // import { useNodeStore } from '../stores/nodes'; // Your store path
   import AttachmentUploader from '../components/AttachmentUploader.vue';
   import BusinessHoursPicker from '../components/BusinessHoursPicker.vue';
   
@@ -47,7 +47,7 @@
     businessHours?: any; // Structure this according to your date-time picker's output
   }
   
-  const nodeStore = useNodeStore();
+  // const nodeStore = useNodeStore();
   const drawer = ref(false);
   const nodeDetails = ref<NodeDetailType>({
     id: '',
@@ -58,6 +58,7 @@
   });
   
   // Function to open the drawer with node details
+  /*
   function openDrawer(nodeId: string) {
     // Fetch the node details from your store or API
     const node = nodeStore.nodes.find((n) => n.id === nodeId);
@@ -65,23 +66,23 @@
       nodeDetails.value = { ...node.data, id: node.id };
       drawer.value = true;
     }
-  }
+  }*/
   // Function to save changes made to the node details
   function saveChanges() {
     // Update the node in your store
-    nodeStore.updateNode(nodeDetails.value);
+    //nodeStore.updateNode(nodeDetails.value);
     drawer.value = false;
   }
   
   // Function to delete the node
+  /*
   function deleteNode() {
     nodeStore.deleteNode(nodeDetails.value.id);
     drawer.value = false;
-  }
+  }*/
   
   // Function to close the drawer
   function closeDrawer() {
     drawer.value = false;
   }
   </script>
-  

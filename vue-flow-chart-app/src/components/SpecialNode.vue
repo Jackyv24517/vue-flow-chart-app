@@ -9,6 +9,7 @@ const counter = ref(0)
   <div class="custom-node">
     <Handle type="target" :position="Position.Top" />
     <button @click="counter++">Increment</button>
+    // eslint-disable-next-line vue/require-v-for-key
     <div v-for="count of counter">{{ count }}</div>
   </div>
 </template>

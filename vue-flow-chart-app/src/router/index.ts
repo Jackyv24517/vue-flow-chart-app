@@ -1,11 +1,9 @@
 // src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
-import FlowChartPage from '../views/FlowChartPage.vue';
 import CanvasPage from '../views/CanvasPage.vue';
 
 const routes = [
-  { path: '/', redirect: '/flow-chart' },
-  { path: '/flow-chart', name:'FlowChart', component: FlowChartPage },
+  { path: '/', redirect: '/canvas' },
   { path: '/canvas', name:'Canvas', component: CanvasPage },
   // Add other routes as needed
 ];
