@@ -14,6 +14,12 @@ export const useNodeStore = defineStore('nodes', {
     selectNode(nodeId: string) {
         this.selectedNodeId = nodeId;
       },
+      setNodes(nodes: Node[]) {
+        this.nodes = nodes;
+      },
+      setEdges(edges: Edge[]) {
+        this.edges = edges;
+      },
       updateNode(nodeId: string, updatedData: Partial<Node['data']>) {
         const nodeIndex = this.nodes.findIndex(node => node.id === nodeId);
         if (nodeIndex !== -1) {

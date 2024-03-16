@@ -34,17 +34,35 @@
     isNodeDetailDrawerVisible.value = true;
   };
   
-  onMounted(() => {
-    // Optionally initialize or fetch nodes/edges if your store does that
-    const nodes = nodesData.filter(item => !item.source && !item.target);
-    const edges = nodesData.filter(item => item.source && item.target);
+  onMounted(async () => {
+  // Example fetching nodes and edges (replace with your actual fetch logic)
+  // This could be a call to nodeStore actions that fetch data, or directly fetching here and then updating the store.
+  const fetchedNodes = await fetchNodes();
+  const fetchedEdges = await fetchEdges();
 
-  nodeStore.initializeFlow({ nodes, edges });
-  });
-  
-  // Reactive references to nodes and edges from the store for easy use in the template
-  const nodes = ref(nodeStore.nodes);
-  const edges = ref(nodeStore.edges);
+  // Assuming your store has methods to set nodes and edges
+  nodeStore.setNodes(fetchedNodes);
+  nodeStore.setEdges(fetchedEdges);
+});
+
+// Mock fetch functions (replace with actual fetch logic or store actions)
+async function fetchNodes() {
+  // Fetch nodes from an API or other data source
+  return [
+    // Example nodes
+    { id: '1', type: 'input', position: { x: 250, y: 5 }, data: { label: 'Node 1' } },
+    // Add more nodes as needed
+  ];
+}
+
+async function fetchEdges() {
+  // Fetch edges from an API or other data source
+  return [
+    // Example edges
+    { id: 'e1-2', source: '1', target: '2', animated: true },
+    // Add more edges as needed
+  ];
+}
   </script>
   
   <style scoped>
