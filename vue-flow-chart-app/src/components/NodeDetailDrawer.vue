@@ -23,7 +23,7 @@
   
           <!-- Actions: Save, Delete, and Close -->
           <v-btn @click="saveChanges">Save</v-btn>
-          <v-btn color="error" @click="deleteNode">Delete</v-btn>
+          <v-btn color="error">Delete</v-btn>
           <v-btn @click="closeDrawer">Close</v-btn>
         </v-form>
       </v-container>
@@ -74,14 +74,14 @@
   }
   
   // Function to delete the node
+  /*
   function deleteNode() {
     nodeStore.deleteNode(nodeDetails.value.id);
     drawer.value = false;
-  }
+  }*/
   
   // Function to close the drawer
   function closeDrawer() {
     drawer.value = false;
   }
   </script>
-  

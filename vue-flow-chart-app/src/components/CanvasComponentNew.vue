@@ -29,7 +29,6 @@
   import SpecialNode from '../components/SpecialNode.vue';
   import SpecialEdge from '../components/SpecialEdge.vue';
   import { useNodeStore } from '../stores/nodes';
-  import nodesData from '../assets/nodes.json';
   
   const nodeStore = useNodeStore();
   
