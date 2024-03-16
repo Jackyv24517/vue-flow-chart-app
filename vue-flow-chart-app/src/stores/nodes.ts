@@ -37,5 +37,9 @@ export const useNodeStore = defineStore('nodes', {
       clearSelectedNode() {
         this.selectedNodeId = null;
       },
+      initializeFlow({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) {
+        this.nodes = nodes;
+        this.edges = edges;
+      },
   }
 });
