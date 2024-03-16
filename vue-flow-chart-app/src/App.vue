@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>My Application</v-toolbar-title>
+      <v-toolbar-title>Vue Flow Chart Apps</v-toolbar-title>
 
       <!-- Navigation Links -->
       <v-btn text to="/">Home</v-btn>
@@ -9,7 +9,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+        <router-view></router-view>
     </v-main>
   </v-app>
 </template>
