@@ -7,8 +7,8 @@
   </template>
   
   <script setup lang="ts">
-  import CanvasComponent from '@/components/CanvasComponent.vue';
-  import NodeDetailDrawer from '@/components/NodeDetailDrawer.vue';
+  import CanvasComponent from '../components/CanvasComponent.vue';
+  import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
   </script>
   
   <style scoped>

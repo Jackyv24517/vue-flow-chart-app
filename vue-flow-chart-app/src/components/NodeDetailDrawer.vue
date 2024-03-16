@@ -18,10 +18,10 @@
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { useStore } from 'pinia';
+  import { useNodeStore } from '../stores/nodes';
   import { VNavigationDrawer, VList, VListItem, VListItemTitle, VTextField, VBtn } from 'vuetify/components';
     
-  const store = useStore(); // Assuming you have a store for managing nodes
+  const store = useNodeStore(); // Assuming you have a store for managing nodes
 
   
   

@@ -7,8 +7,8 @@
   <script setup lang="ts">
   import { onMounted, ref, watch } from 'vue';
   import { VueFlow, useVueFlow } from '@braks/vue-flow';
-  import nodesData from '@/assets/nodes.json';
-  import { useNodeStore } from '@/stores/nodes';
+  import nodesData from '../assets/nodes.json';
+  import { useNodeStore } from '../stores/nodes';
 
   
   // Reference for nodes and edges
@@ -30,7 +30,7 @@
   
     data.forEach(node => {
       // Transform nodes here based on your data structure
-      transformedNodes.value.push({
+      transformedNodes.push({
         id: node.id.toString(),
         position: { x: Math.random() * 200, y: Math.random() * 200 }, // Example positioning, you might want to position them based on your logic
         data: { label: node.name || `Node ${node.id}` },
@@ -39,7 +39,7 @@
   
       // Assuming parentid/parentId is how edges are defined
       if (node.parentId || node.parentid) {
-        transformedEdges.value.push({
+        transformedEdges.push({
           id: `e${node.id}-${node.parentId || node.parentid}`,
           source: node.parentId || node.parentid.toString(),
           target: node.id.toString(),
