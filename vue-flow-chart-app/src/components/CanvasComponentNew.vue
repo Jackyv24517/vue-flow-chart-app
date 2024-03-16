@@ -23,14 +23,24 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { VueFlow } from '@vue-flow/core';
-  import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
-  import SpecialNode from '../components/SpecialNode.vue';
-  import SpecialEdge from '../components/SpecialEdge.vue';
-  import { useNodeStore } from '../stores/nodes';
+    import { ref, onMounted, defineProps } from 'vue';
+    import { VueFlow,  Node, Edge } from '@vue-flow/core';
+    import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
+    import SpecialNode from '../components/SpecialNode.vue';
+    import SpecialEdge from '../components/SpecialEdge.vue';
+    import { useNodeStore } from '../stores/nodes';
   
   const nodeStore = useNodeStore();
+
+  // If nodes and edges are props passed from the parent component
+const props = defineProps<{
+  nodes: Node[];
+  edges: Edge[];
+}>();
+
+// If nodes and edges are part of the component state
+const nodes = ref<Node[]>([]);
+const edges = ref<Edge[]>([]);
   
   // Node Detail Drawer state
   const isNodeDetailDrawerVisible = ref(true);
@@ -41,6 +51,14 @@
     editingNodeId.value = nodeId;
     isNodeDetailDrawerVisible.value = true;
   };
+
+  const handleSaveNode = (nodeData: NodeData) => {
+  // Your logic to handle node saving
+};
+
+const handleDeleteNode = (nodeId: string) => {
+  // Your logic to handle node deletion
+};
   
   onMounted(async () => {
   // Example fetching nodes and edges (replace with your actual fetch logic)
