@@ -1,4 +1,6 @@
 <template>
+    <div></div>
+    <!--
     <VueFlow :nodes="nodes" :edges="edges">
       <template v-slot:node-special="{ node }">
         <SpecialNode 
@@ -12,6 +14,9 @@
         <SpecialEdge :edge="edge" />
       </template>
     </VueFlow>
+  -->
+
+  <!--
 
     <NodeDetailDrawer
       :node-id="selectedNodeId"
@@ -20,32 +25,24 @@
       @save="handleSaveNode"
       @delete="handleDeleteNode"
     />
+    -->
   </template>
   
   <script setup lang="ts">
-    import { ref, onMounted, defineProps } from 'vue';
-    import { VueFlow,  Node, Edge } from '@vue-flow/core';
-    import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
-    import SpecialNode from '../components/SpecialNode.vue';
-    import SpecialEdge from '../components/SpecialEdge.vue';
+    import { onMounted } from 'vue';
+    // import {  Node, Edge } from '@vue-flow/core';
+    // import NodeDetailDrawer from '../components/NodeDetailDrawer.vue';
+   // import SpecialNode from '../components/SpecialNode.vue';
+   // import SpecialEdge from '../components/SpecialEdge.vue';
     import { useNodeStore } from '../stores/nodes';
   
   const nodeStore = useNodeStore();
-
-  // If nodes and edges are props passed from the parent component
-const props = defineProps<{
-  nodes: Node[];
-  edges: Edge[];
-}>();
-
-// If nodes and edges are part of the component state
-const nodes = ref<Node[]>([]);
-const edges = ref<Edge[]>([]);
   
   // Node Detail Drawer state
-  const isNodeDetailDrawerVisible = ref(true);
-  const editingNodeId = ref('');
+ // const isNodeDetailDrawerVisible = ref(true);
+ // const editingNodeId = ref('');
   
+  /*
   // Function to open Node Detail Drawer
   const openNodeDetailDrawer = (nodeId: string) => {
     editingNodeId.value = nodeId;
@@ -58,7 +55,7 @@ const edges = ref<Edge[]>([]);
 
 const handleDeleteNode = (nodeId: string) => {
   // Your logic to handle node deletion
-};
+};*/
   
   onMounted(async () => {
   // Example fetching nodes and edges (replace with your actual fetch logic)
