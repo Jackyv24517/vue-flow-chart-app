@@ -2,16 +2,18 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title>Vue Flow Chart Apps</v-toolbar-title>
-
-      <!-- Navigation Links -->
       <v-btn text to="/">Home</v-btn>
       <v-btn text to="/flow-chart">Flow Chart</v-btn>
     </v-app-bar>
-
     <v-main>
-        <router-view></router-view>
+        <router-view></router-view>    
     </v-main>
+
+    <v-footer app>
+      Mini vue flow chart apps @ 2024
+    </v-footer>
   </v-app>
+
 </template>
 
 <style scoped>
