@@ -1,91 +1,87 @@
 <template>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>Title</v-list-item-title>
-          <v-text-field v-model="nodeDetails.title" />
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>Description</v-list-item-title>
-          <v-text-field v-model="nodeDetails.description" />
-        </v-list-item>
-        <!-- Add more fields as needed based on the node's data -->
-      </v-list>
-      <v-btn color="primary" @click="saveNodeDetails">Save</v-btn>
-      <v-btn color="secondary" @click="closeDrawer">Cancel</v-btn>
+    <v-navigation-drawer v-model="drawer" temporary>
+      <v-container>
+        <v-form>
+          <!-- Node Title and Description -->
+          <v-text-field v-model="nodeDetails.title" label="Title" />
+          <v-text-field v-model="nodeDetails.description" label="Description" />
+  
+          <!-- Send Message: Attachment upload and display -->
+          <div v-if="nodeDetails.type === 'sendMessage'">
+            <AttachmentUploader v-model="nodeDetails.attachments" />
+          </div>
+  
+          <!-- Add Comments: Text input for comments -->
+          <div v-if="nodeDetails.type === 'addComment'">
+            <v-textarea v-model="nodeDetails.comments" label="Comments" />
+          </div>
+  
+          <!-- Business Hours: Date-time picker for business hours -->
+          <div v-if="nodeDetails.type === 'businessHours'">
+            <BusinessHoursPicker v-model="nodeDetails.businessHours" />
+          </div>
+  
+          <!-- Actions: Save, Delete, and Close -->
+          <v-btn @click="saveChanges">Save</v-btn>
+          <v-btn color="error" @click="deleteNode">Delete</v-btn>
+          <v-btn @click="closeDrawer">Close</v-btn>
+        </v-form>
+      </v-container>
     </v-navigation-drawer>
   </template>
   
   <script setup lang="ts">
-  import { ref, watch } from 'vue';
-  import { useNodeStore } from '../stores/nodes';
-  import { VNavigationDrawer, VList, VListItem, VListItemTitle, VTextField, VBtn } from 'vuetify/components';
+  import { ref } from 'vue';
+  import { useNodeStore } from '../stores/nodes'; // Your store path
+  import AttachmentUploader from '../components/AttachmentUploader.vue';
+  import BusinessHoursPicker from '../components/BusinessHoursPicker.vue';
   
-  // Data to hold the details of the selected node
-  const nodeDetails = ref({
+  // Replace 'NodeDetailType' with the appropriate type based on your application's data structure
+ interface NodeDetailType {
+    id: string;
+    title: string;
+    description: string;
+    type: string;
+    attachments?: any[];
+    comments?: string;
+    businessHours?: any; // Structure this according to your date-time picker's output
+  }
+  
+  const nodeStore = useNodeStore();
+  const drawer = ref(false);
+  const nodeDetails = ref<NodeDetailType>({
     id: '',
     title: '',
     description: '',
-    // Include other properties as needed
+    type: '',
+    // Add default values for other properties as needed
   });
   
-  const drawer = ref(false);
-
-  const nodeStore = useNodeStore(); // Assuming you have a store for managing nodes
-  
-  // Watch for changes in selectedNodeId to update nodeDetails
-
-
-
-  // Example function to open the drawer and load node details
-  /*
-  function openDrawerWithNodeDetails(nodeId) {
-    const node = store.findNodeById(nodeId); // Implement this method in your store
+  // Function to open the drawer with node details
+  function openDrawer(nodeId: string) {
+    // Fetch the node details from your store or API
+    const node = nodeStore.nodes.find((n) => n.id === nodeId);
     if (node) {
-      nodeDetails.value = { ...node };
+      nodeDetails.value = { ...node.data, id: node.id };
       drawer.value = true;
     }
-  }*/
-
-// Watch for changes in selectedNodeId to update nodeDetails
-watch(() => nodeStore.selectedNodeId, (newId) => {
-  if (newId) {
-    const node = nodeStore.nodes.find((n) => n.id === newId);
-    if (node) {
-      nodeDetails.value = { ...node.data }; // Assuming node.data contains details
-      drawer.value = true; // Open the drawer
-    }
-  } else {
-    drawer.value = false; // Close the drawer if no node is selected
   }
-});
-  
-const saveNodeDetails = async () => {
-  // Perform any validation necessary for nodeDetails
-  if (!nodeDetails.value.title || !nodeDetails.value.description) {
-    // Handle validation failure (e.g., show an error message)
-    console.error('Validation failed: title and description are required.');
-    return;
-  }
-
-  try {
-    // Call an action from your Pinia store to save the node details
-    await nodeStore.updateNode(nodeDetails.value);
-
-    // Close the drawer and clear the selected node after saving
+  // Function to save changes made to the node details
+  function saveChanges() {
+    // Update the node in your store
+    nodeStore.updateNode(nodeDetails.value);
     drawer.value = false;
-    nodeStore.clearSelectedNode();
-
-  } catch (error) {
-    // Handle errors (e.g., show an error message to the user)
-    console.error('Failed to save node details:', error);
   }
-};
-
-const closeDrawer = () => {
-  drawer.value = false; // Close the drawer
-  nodeStore.clearSelectedNode(); // Optionally clear the selected node in your store
-};
-
-</script>
+  
+  // Function to delete the node
+  function deleteNode() {
+    nodeStore.deleteNode(nodeDetails.value.id);
+    drawer.value = false;
+  }
+  
+  // Function to close the drawer
+  function closeDrawer() {
+    drawer.value = false;
+  }
+  </script>
   

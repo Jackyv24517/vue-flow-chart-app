@@ -1,7 +1,7 @@
 <template>
     <v-container fluid>
         <v-row>
-            <v-col cols="12">
+            <v-col cols="6">
                 <VueFlow
                     v-model:nodes="nodes"
                     v-model:edges="edges"
@@ -26,6 +26,9 @@
                         <SpecialEdge v-bind="edgeProps" />
                     </template>
                 </VueFlow>
+            </v-col>
+            <v-col cols="6">
+                <NodeDetailDrawer/>
             </v-col>
         </v-row>
         <v-row>
@@ -59,6 +62,7 @@ import { MiniMap } from '@vue-flow/minimap'
 import { VueFlow, useVueFlow, type Node, type Edge } from '@vue-flow/core'
 import SpecialNode from '../components/SpecialNode.vue'
 import SpecialEdge from '../components/SpecialEdge.vue'
+import NodeDetailDrawer from '../components/NodeDetailDrawer.vue'
 import { useNodeStore } from '../stores/nodes';
 
 const { onConnect, addEdges } = useVueFlow()
