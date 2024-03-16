@@ -1,15 +1,10 @@
 import { defineStore } from 'pinia';
-
-interface NodeData {
-  id: string;
-  name?: string;
-  type: string;
-  data: any; // Adjust this to match your actual node data structure
-}
+import { Node, Edge } from '@vue-flow/core';
 
 export const useNodeStore = defineStore('nodes', {
   state: () => ({
-    nodes: [] as NodeData[],
+    nodes: [] as Node[],
+    edges: [] as Edge[],
     selectedNodeId: null as string | null,
   }),
   getters: {
@@ -17,14 +12,30 @@ export const useNodeStore = defineStore('nodes', {
   },
   actions: {
     selectNode(nodeId: string) {
-      this.selectedNodeId = nodeId;
-    },
-    updateNode(updatedNode: NodeData) {
-      const index = this.nodes.findIndex(node => node.id === updatedNode.id);
-      if (index !== -1) {
-        this.nodes[index] = updatedNode;
-      }
-    },
-    // Add more actions as needed
+        this.selectedNodeId = nodeId;
+      },
+      updateNode(nodeId: string, updatedData: Partial<Node['data']>) {
+        const nodeIndex = this.nodes.findIndex(node => node.id === nodeId);
+        if (nodeIndex !== -1) {
+          // Update the node's data property with the provided updatedData
+          this.nodes[nodeIndex].data = { ...this.nodes[nodeIndex].data, ...updatedData };
+        }
+      },
+      addNode(node: Node) {
+        this.nodes.push(node);
+      },
+      removeNode(nodeId: string) {
+        this.nodes = this.nodes.filter(node => node.id !== nodeId);
+        this.edges = this.edges.filter(edge => edge.source !== nodeId && edge.target !== nodeId);
+      },
+      addEdge(edge: Edge) {
+        this.edges.push(edge);
+      },
+      removeEdge(edgeId: string) {
+        this.edges = this.edges.filter(edge => edge.id !== edgeId);
+      },
+      clearSelectedNode() {
+        this.selectedNodeId = null;
+      },
   }
 });
